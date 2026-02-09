@@ -271,7 +271,8 @@ function decoLine
   }
   csRe.lastIndex = 0
   matches = line.text.matchAll(csRe)
-  matches.forEach(match => {
+  for (const match of matches) {
+  // matches.forEach(match => {
     let start, end
 
     start = match.indices[0][0]
@@ -284,13 +285,13 @@ function decoLine
 
       group2 = match.indices[2]
       if (group2[0] == group2[1])
-        return
+        continue
       line.text.slice(group2[0], group2[1]).split(';').forEach(attr => {
         if (attr.length)
           addAttr(line, start, end, attr)
       })
     }
-  })
+  }
   ranges.forEach(r => r.skipStyle || builder.add(r.from, r.to, r.dec))
   {
     let filtered
